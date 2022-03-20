@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#ignaorar los fichero de la carpeta de datos
+Datos/*.7z
+Datos/*.pickle
