@@ -131,3 +131,4 @@ dmypy.json
 #ignaorar los fichero de la carpeta de datos
 Datos/*.7z
 Datos/*.pickle
+Datos/*.csv
