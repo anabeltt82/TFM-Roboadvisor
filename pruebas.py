@@ -4,7 +4,7 @@ import PreparaDatos as PrepDatos
 
 Datos = PrepDatos.PreparaDatos()
 
-print(Datos.allData[:100])
+
 print(Datos.maestro[:100])
 
 
