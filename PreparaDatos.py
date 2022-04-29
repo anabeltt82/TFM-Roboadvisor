@@ -19,11 +19,13 @@ class PreparaDatos():
     # Preparación de datos de activos
     #   reinversion = True
     # Pruebas
+    
     test = False
     # Ventana de volatilidad rolling
     ventanaVola = 4  # 30
  
     def __init__(self) -> None:
+        self.path_datos = "C:/Users/anabe/OneDrive/Documentos/master miaX/TFM_Anabel/Anabel TFM/Datos"
         if (self.test == True):
             # Cargamos datos ya tratados para ahorrar tiempo
             self.allData = self.cargarDatosTratados()
@@ -34,7 +36,7 @@ class PreparaDatos():
             self.allData = self.homogeneizarDatosActivos(self.navs_dict)
             self.allData = self.normalizarDatos(self.allData)
             # Guardamos datos tratados para ahorrar tiempo
-            self.allData.to_csv("./Datos/allData.csv")
+            self.allData.to_csv(self.path_datos + "/allData.csv")
 
         # Rentabilidad de los activos
         self.allRentab = self.calcularRentabilidadActivos(self.allData)
@@ -64,13 +66,13 @@ class PreparaDatos():
 
     def cargarDatosRaw(self) -> tuple:
         maestro = pd.read_csv(
-            "./Datos/maestro.csv",
+            self.path_datos + "/maestro.csv",
             usecols=["allfunds_id", "asset", "asset_type", "geo_area", "geo_zone",
                      "management_fee", "manager_id", "ongoing_charges"],
             index_col="allfunds_id")
 
         navs_dict = dict(pickle.load(
-            open("./Datos/navs.pickle", "rb")))
+            open(self.path_datos + "/navs.pickle", "rb")))
 
         return (maestro, navs_dict)
     
@@ -151,7 +153,7 @@ class PreparaDatos():
 
     def cargarIndice(self) -> pd.DataFrame:
         msci = pd.read_csv(
-            "./Datos/MSCI_World_Investing.csv",
+            self.path_datos +"/MSCI_World_Investing.csv",
             usecols=["Fecha", "Último"],
             index_col="Fecha",
             parse_dates=True,
@@ -235,7 +237,7 @@ class PreparaDatos():
 
     def cargarDatosTratados(self) -> pd.DataFrame:
         data = pd.read_csv(
-            "./Datos/allData.csv",
+            self.path_datos + "/allData.csv",
             index_col="date",
             parse_dates=True)
         return data
